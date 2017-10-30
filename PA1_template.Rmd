@@ -7,21 +7,37 @@ output:
 
 ```{r "setup", include=FALSE}
 require("knitr")
+
 opts_knit$set(root.dir = "C:/JP Docs/Data Science Certification/WD/")
 ```
 
 ## Loading and preprocessing the data
-### Convert the Data to a valid R date object
-```{r readdata}
-
-
-
+### Read  the CSV  file in table format and create a data frame 
+### Convert the data to a  R date object
+```{r readdata, echo  =  TRUE}
 df <- read.csv("activity.csv", header = TRUE)
 df$date <- as.Date(df$date)
 ```
 
 
 ## What is mean total number of steps taken per day?
+### Create  a histogram for total number of steps taken each day
+```{r histogram,  echo  =  TRUE}
+totalSteps <- with(df,tapply(df$steps,df$date,FUN = sum, na.rm = TRUE))
+
+hist(totalSteps, xlab = "Total Steps", ylab = "Number of Days", main = "Total Number of Steps Taken Each Day", col = "green")
+qplot(totalSteps, geom = "histogram", binwidth = 1000, xlab = "Total Steps", ylab = "Number of Days", main = "Total Number of Steps Taken Each Day", fill = ..count..)
+
+```
+
+### Determine mean and median total number of steps taken per day
+```{r meanmediansteps,  echo  =  TRUE}
+
+meanSteps <- mean(totalSteps, na.rm = TRUE)
+medianSteps <- median(totalSteps, na.rm = TRUE)
+meanSteps
+medianSteps
+```
 
 
 
