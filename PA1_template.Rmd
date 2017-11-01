@@ -46,6 +46,7 @@ medianSteps
 ```{r activitypatternplot, fig.height=4,fig.width=8, echo  =  TRUE}
 
 avgStepsPerInt <- with(na.omit(df),tapply(steps,interval,mean))
+
 plot(names(avgStepsPerInt), avgStepsPerInt, type = "l", xlab = "5-minute Interval", 
     ylab = "Number of Steps", main = "Average Daily Activity Pattern")
 
@@ -62,6 +63,40 @@ maxInterval
 
 ## Imputing missing values
 
+###Calculate  the total number of missing values in the dataset (i.e. the total number of rows with NAs)
+```{r numberMissingValues, echo  =  TRUE}
+mv <- sum(is.na(df))
+mv
+```
+###The total number of missing values in the dataset: 2304
 
+
+### Create a new dataset that is equal to the original dataset but with the missing data filled in
+```{r missingValuesFilledIn, echo  =  TRUE}
+
+df2<-aggregate(steps~interval,data=df,mean,na.rm=TRUE)
+getMeanSteps<-function(interval){
+    df2[df2$interval==interval,]$steps
+}
+```
+
+##Create a new dataset with missing data filled in. 
+```{r createNewData}
+
+df3<-df   # Make a new dataset with the original data
+count=0           # Count the number of data filled in
+for(i in 1:nrow(df3)){
+    if(is.na(df3[i,]$steps)){
+        df3[i,]$steps<-getMeanSteps(df3[i,]$interval)
+        count=count+1
+    }
+}
+
+
+
+mv <- sum(is.na(df3))
+mv
+
+```
 
 ## Are there differences in activity patterns between weekdays and weekends?
