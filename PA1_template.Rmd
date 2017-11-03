@@ -128,3 +128,24 @@ medianSteps2
 ### There is almost no impact on the mean and median values by  imputing missing data on the estimates of the total daily number ### of steps. The mean value remains the same at 10766. The median value changed from 10765 to 10766. The frequency has increased as can be seen in particular the center bar of the histogram.
 
 ## Are there differences in activity patterns between weekdays and weekends?
+### For this part the weekdays() function may be of some help here. Use the dataset with the filled-in missing values for ### this part.
+### 1.Create a new factor variable in the dataset with two levels - "weekday" and "weekend" indicating whether a given date is a weekday or weekend day.
+
+```{r createFactorVariable, echo  =  TRUE}
+
+days <- weekdays(df3$date)
+weekend <- (days == "Saturday" | days == "Sunday")
+dayfactor <- factor(weekend, labels = list("weekday", "weekend"))
+df3$daytype <- dayfactor
+```
+
+### Make a panel plot containing a time series plot (i.e. type = "l") of the 5-minute interval (x-axis) and the average 
+### number of steps taken, averaged across all weekday days or weekend days (y-axis). See the README file in the GitHub 
+### repository to see an example of what this plot should look like using simulated data.
+
+```{r timeSeriesPanelPlot, echo  =  TRUE}
+groupedData <- aggregate(df3$steps, list(DayType = df3$daytype, Interval = df3$interval), mean)
+library(lattice)
+xyplot(groupedData$x ~ groupedData$Interval | groupedData$DayType, layout = c(1, 
+    2), xlab = "Interval", ylab = "Number of Steps", type = "l")
+```
