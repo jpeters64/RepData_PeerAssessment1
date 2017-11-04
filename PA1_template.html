@@ -9,6 +9,7 @@
 <meta name="generator" content="pandoc" />
 
 
+<meta name="author" content="Jeremy Peters" />
 
 
 <title>Reproducible Research: Peer Assessment 1</title>
@@ -116,6 +117,8 @@ $(document).ready(function () {
 
 
 <h1 class="title toc-ignore">Reproducible Research: Peer Assessment 1</h1>
+<h4 class="author"><em>Jeremy Peters</em></h4>
+<h4 class="date"><em>Nov 4, 2017</em></h4>
 
 </div>
 
@@ -138,12 +141,10 @@ df$date &lt;- as.Date(df$date)</code></pre>
 </div>
 <div id="create-a-histogram-for-total-number-of-steps-taken-each-day" class="section level3">
 <h3>Create a histogram for total number of steps taken each day</h3>
-<pre class="r"><code>#totalSteps &lt;- with(df,tapply(df$steps,df$date,FUN = sum, na.rm = TRUE))
-totalSteps &lt;- aggregate(steps ~ date,data = df, sum, na.rm = TRUE)
+<pre class="r"><code>totalSteps &lt;- aggregate(steps ~ date,data = df, sum, na.rm = TRUE)
 
 hist(totalSteps$steps,col = &quot;blue&quot;, xlab = &quot;No. Steps&quot;, main = &quot;Histogram Total Number of Steps Taken Each Day&quot;)</code></pre>
 <p><img src="data:image/png;base64,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" /><!-- --></p>
-<pre class="r"><code>#qplot(totalSteps, geom = &quot;histogram&quot;, binwidth = 1000, xlab = &quot;Total Steps&quot;, ylab = &quot;Number of Days&quot;, main = &quot;Total Number #of Steps Taken Each Day&quot;)</code></pre>
 </div>
 <div id="determine-mean-and-median-total-number-of-steps-taken-per-day" class="section level3">
 <h3>Determine mean and median total number of steps taken per day</h3>
@@ -231,16 +232,13 @@ for(i in 1:nrow(df3)){
         df3[i,]$steps&lt;-getMeanSteps(df3[i,]$interval)
         count=count+1
     }
-}
-
-
-
-mv &lt;- sum(is.na(df3))
-mv</code></pre>
-<pre><code>## [1] 0</code></pre>
+}</code></pre>
 </div>
-<div id="make-a-histogram-of-the-total-number-of-steps-taken-each-day-and-calculate-and-report-the-mean-and-median-total-number-of-steps-taken-per-day.-do-these-values-differ-from-the-estimates-from-the-first-part-of-the-assignment-what-is-the-impact-of-imputing-missing-data-on-the-estimates-of-the-total-daily-number-of-steps" class="section level3">
-<h3>Make a histogram of the total number of steps taken each day and Calculate and report the mean and median total number ### of steps taken per day. Do these values differ from the estimates from the first part of the assignment? What is the ### impact of imputing missing data on the estimates of the total daily number of steps?</h3>
+<div id="make-a-histogram-of-the-total-number-of-steps-taken-each-day-and-calculate-and-report-the-mean-and-median-total-number-of-steps-taken-per-day.-do-these-values-differ-from-the-estimates-from-the-first-part-of-the-assignment-what-is-the" class="section level3">
+<h3>Make a histogram of the total number of steps taken each day and Calculate and report the mean and median total number ### of steps taken per day. Do these values differ from the estimates from the first part of the assignment? What is the</h3>
+</div>
+<div id="impact-of-imputing-missing-data-on-the-estimates-of-the-total-daily-number-of-steps" class="section level3">
+<h3>impact of imputing missing data on the estimates of the total daily number of steps?</h3>
 <pre class="r"><code>totalSteps2 &lt;- aggregate(steps ~ date,data = df3, sum)
 
 hist(totalSteps2$steps,col = &quot;blue&quot;, xlab = &quot;Number of Steps&quot;, main = &quot;Histogram Total Number of Steps Taken Each Day&quot;)</code></pre>
@@ -258,8 +256,11 @@ meanSteps2</code></pre>
 <div id="the-median-total-number-of-steps-taken-per-day-is-10766." class="section level3">
 <h3>The median total number of steps taken per day is 10766.</h3>
 </div>
-<div id="there-is-almost-no-impact-on-the-mean-and-median-values-by-imputing-missing-data-on-the-estimates-of-the-total-daily-number-of-steps.-the-mean-value-remains-the-same-at-10766.-the-median-value-changed-from-10765-to-10766.-the-frequency-has-increased-as-can-be-seen-in-particular-the-center-bar-of-the-histogram." class="section level3">
-<h3>There is almost no impact on the mean and median values by imputing missing data on the estimates of the total daily number ### of steps. The mean value remains the same at 10766. The median value changed from 10765 to 10766. The frequency has increased as can be seen in particular the center bar of the histogram.</h3>
+<div id="there-is-almost-no-impact-on-the-mean-and-median-values-by-imputing-missing-data-on-the-estimates-of-the-total-daily" class="section level3">
+<h3>There is almost no impact on the mean and median values by imputing missing data on the estimates of the total daily</h3>
+</div>
+<div id="number-of-steps.-the-mean-value-remains-the-same-at-10766.-the-median-value-changed-from-10765-to-10766.-the-frequency-has-increased-as-can-be-seen-in-particular-the-center-bar-of-the-histogram." class="section level3">
+<h3>number of steps. The mean value remains the same at 10766. The median value changed from 10765 to 10766. The frequency ### has increased as can be seen in particular the center bar of the histogram.</h3>
 </div>
 </div>
 <div id="are-there-differences-in-activity-patterns-between-weekdays-and-weekends" class="section level2">
@@ -275,7 +276,7 @@ dfactor &lt;- factor(satsun, labels = list(&quot;weekday&quot;, &quot;weekend&qu
 df3$dtype &lt;- dfactor</code></pre>
 </div>
 <div id="make-a-panel-plot-containing-a-time-series-plot-i.e.type-l-of-the-5-minute-interval-x-axis-and-the-average" class="section level3">
-<h3>Make a panel plot containing a time series plot (i.e. type = “l”) of the 5-minute interval (x-axis) and the average</h3>
+<h3>2. Make a panel plot containing a time series plot (i.e. type = “l”) of the 5-minute interval (x-axis) and the average</h3>
 </div>
 <div id="number-of-steps-taken-averaged-across-all-weekday-days-or-weekend-days-y-axis.-see-the-readme-file-in-the-github" class="section level3">
 <h3>number of steps taken, averaged across all weekday days or weekend days (y-axis). See the README file in the GitHub</h3>

@@ -1,4 +1,6 @@
 # Reproducible Research: Peer Assessment 1
+Jeremy Peters  
+Nov 4, 2017  
 
 
 
@@ -19,17 +21,12 @@ df$date <- as.Date(df$date)
 
 
 ```r
-#totalSteps <- with(df,tapply(df$steps,df$date,FUN = sum, na.rm = TRUE))
 totalSteps <- aggregate(steps ~ date,data = df, sum, na.rm = TRUE)
 
 hist(totalSteps$steps,col = "blue", xlab = "No. Steps", main = "Histogram Total Number of Steps Taken Each Day")
 ```
 
 ![](PA1_template_files/figure-html/histogramTotalSteps1-1.png)<!-- -->
-
-```r
-#qplot(totalSteps, geom = "histogram", binwidth = 1000, xlab = "Total Steps", ylab = "Number of Days", main = "Total Number #of Steps Taken Each Day")
-```
 
 ### Determine mean and median total number of steps taken per day
 
@@ -120,18 +117,9 @@ for(i in 1:nrow(df3)){
         count=count+1
     }
 }
-
-
-
-mv <- sum(is.na(df3))
-mv
 ```
-
-```
-## [1] 0
-```
-### Make a histogram of the total number of steps taken each day and Calculate and report the mean and median total number ### of steps taken per day. Do these values differ from the estimates from the first part of the assignment? What is the ### impact of imputing missing data on the estimates of the total daily number of steps?
-
+### Make a histogram of the total number of steps taken each day and Calculate and report the mean and median total number ### of steps taken per day. Do these values differ from the estimates from the first part of the assignment? What is the 
+### impact of imputing missing data on the estimates of the total daily number of steps?
 
 ```r
 totalSteps2 <- aggregate(steps ~ date,data = df3, sum)
@@ -163,7 +151,8 @@ medianSteps2
 ### The mean  total number of steps taken per day is 10766.
 ### The median total number of steps taken per day is 10766.
 
-### There is almost no impact on the mean and median values by  imputing missing data on the estimates of the total daily number ### of steps. The mean value remains the same at 10766. The median value changed from 10765 to 10766. The frequency has increased as can be seen in particular the center bar of the histogram.
+### There is almost no impact on the mean and median values by  imputing missing data on the estimates of the total daily  
+### number of steps. The mean value remains the same at 10766. The median value changed from 10765 to 10766. The frequency ### has increased as can be seen in particular the center bar of the histogram.
 
 ## Are there differences in activity patterns between weekdays and weekends?
 ### For this part the weekdays() function may be of some help here. Use the dataset with the filled-in missing values for ### this part.
@@ -177,7 +166,7 @@ dfactor <- factor(satsun, labels = list("weekday", "weekend"))
 df3$dtype <- dfactor
 ```
 
-### Make a panel plot containing a time series plot (i.e. type = "l") of the 5-minute interval (x-axis) and the average 
+### 2. Make a panel plot containing a time series plot (i.e. type = "l") of the 5-minute interval (x-axis) and the average 
 ### number of steps taken, averaged across all weekday days or weekend days (y-axis). See the README file in the GitHub 
 ### repository to see an example of what this plot should look like using simulated data.
 
