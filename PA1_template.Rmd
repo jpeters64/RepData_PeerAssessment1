@@ -7,8 +7,8 @@ output:
 
 ```{r "setup", include=FALSE}
 require("knitr")
-
-opts_knit$set(root.dir = "C:/JP Docs/Data Science Certification/WD/")
+require("lattice")
+#opts_knit$set(root.dir = "C:/JP Docs/Data Science Certification/WD/")
 ```
 
 ## Loading and preprocessing the data
@@ -114,7 +114,7 @@ mv
 ```{r histogramTotalSteps2,echo  =  TRUE}
 totalSteps2 <- aggregate(steps ~ date,data = df3, sum)
 
-hist(totalSteps2$steps,col = "blue", xlab = "No. Steps", main = "Histogram Total Number of Steps Taken Each Day")
+hist(totalSteps2$steps,col = "blue", xlab = "Number of Steps", main = "Histogram Total Number of Steps Taken Each Day")
 meanSteps2 <- mean(totalSteps2$steps)
 medianSteps2 <- median(totalSteps2$steps)
 meanSteps2
@@ -133,10 +133,10 @@ medianSteps2
 
 ```{r createFactorVariable, echo  =  TRUE}
 
-days <- weekdays(df3$date)
-weekend <- (days == "Saturday" | days == "Sunday")
-dayfactor <- factor(weekend, labels = list("weekday", "weekend"))
-df3$daytype <- dayfactor
+wdays <- weekdays(df3$date)
+satsun <- (wdays == "Saturday" | wdays == "Sunday")
+dfactor <- factor(satsun, labels = list("weekday", "weekend"))
+df3$dtype <- dfactor
 ```
 
 ### Make a panel plot containing a time series plot (i.e. type = "l") of the 5-minute interval (x-axis) and the average 
@@ -144,8 +144,8 @@ df3$daytype <- dayfactor
 ### repository to see an example of what this plot should look like using simulated data.
 
 ```{r timeSeriesPanelPlot, echo  =  TRUE}
-groupedData <- aggregate(df3$steps, list(DayType = df3$daytype, Interval = df3$interval), mean)
-library(lattice)
-xyplot(groupedData$x ~ groupedData$Interval | groupedData$DayType, layout = c(1, 
+totalSteps3 <- aggregate(df3$steps, list(DayType = df3$dtype, Interval = df3$interval), mean)
+
+xyplot(totalSteps3$x ~ totalSteps3$Interval | totalSteps3$DayType, layout = c(1, 
     2), xlab = "Interval", ylab = "Number of Steps", type = "l")
 ```
